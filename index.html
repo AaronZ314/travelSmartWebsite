@@ -1,0 +1,57 @@
+<!-- The actual frontend part -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>travelSmart</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <!-- This is the title -->
+    <h1>travelSmart</h1>
+    
+      <!-- For navigation. Pressable buttons that take you to each section of the site -->
+    <nav>
+      <a href = "./index.html"> Home </a>
+      <a href = "./survey.html"> Survey </a>
+      <a href = "./places.html"> Places </a>
+      <a href = "./foods.html"> Foods </a>
+    </nav>
+    
+    <main>
+      <!-- Main interactable feature -->
+      <div class="hero">
+        <h2>Welcome to travelSmart!</h2>
+        <p>Plan your trip. Discover great food. All in one place.</p>
+        <button onclick="showMessage()">Start Planning</button>
+      </div>
+
+       <!-- Secondary feautures that isnt interactable that only shows details of what the site is about -->
+    <div class="features">
+      <div class="feature">
+         <h3>Plan Your Trip</h3>
+         <p>Get recommendations for places to visit in New York State.</p>
+      </div>
+
+      <div class="feature">
+        <h3>Discover Food</h3>
+        <p>Find restaurants nearby based on your preferences and budget.</p>
+      </div>
+
+      <div class="feature">
+        <h3>Create Itineraries</h3>
+        <p>Build a daily plan for your trip automatically.</p>
+      </div>
+    </div>
+    </main>
+
+    <!-- How the button interacts. -->
+    <script src="app.js"></script>
+
+    <!-- Credits/foot note for the team -->
+     <footer>
+      <p>2025 travelSmart Project for PLC</p>
+      <p> By: Adrian Wu, Kisn Mathema, Aaron Zhang, Andy Shao, Lamin Yabou</p>
+     </footer>
+  </body>
+</html>
