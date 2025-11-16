@@ -1,57 +1,89 @@
-<!-- The actual frontend part -->
 <!DOCTYPE html>
 <html>
   <head>
     <title>travelSmart</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+      .hero {
+        text-align: center;
+        margin-top: 2em;
+      }
+      .cta-button {
+        display: inline-block;
+        background: #fff;
+        color: #222;
+        font-size: 2em;
+        font-weight: 500;
+        text-align: center;
+        padding: 0.75em 2em;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.07s, box-shadow 0.07s;
+        margin-top: 1.5em;
+      }
+      .cta-button:hover {
+        transform: scale(1.03);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.14);
+      }
+      .features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2em;
+        justify-content: center;
+        margin-top: 2em;
+      }
+      .feature {
+        background: #f8fbff;
+        border-radius: 16px;
+        padding: 1em 1.5em;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        min-width: 220px;
+        max-width: 300px;
+      }
+    </style>
   </head>
 
   <body>
-    <!-- This is the title -->
     <h1>travelSmart</h1>
     
-      <!-- For navigation. Pressable buttons that take you to each section of the site -->
     <nav>
-      <a href = "./index.html"> Home </a>
-      <a href = "./survey.html"> Survey </a>
-      <a href = "./places.html"> Places </a>
-      <a href = "./foods.html"> Foods </a>
+      <a href="./index.html">Home</a>
+      <a href="./survey.html">Survey</a>
+      <a href="./places.html">Places</a>
+      <a href="./foods.html">Foods</a>
     </nav>
     
     <main>
-      <!-- Main interactable feature -->
       <div class="hero">
         <h2>Welcome to travelSmart!</h2>
         <p>Plan your trip. Discover great food. All in one place.</p>
-        <button onclick="showMessage()">Start Planning</button>
+        <a href="survey.html?new=true" class="cta-button">Start Planning</a>
       </div>
 
-       <!-- Secondary feautures that isnt interactable that only shows details of what the site is about -->
-    <div class="features">
-      <div class="feature">
-         <h3>Plan Your Trip</h3>
-         <p>Get recommendations for places to visit in New York State.</p>
-      </div>
+      <div class="features">
+        <div class="feature">
+          <h3>Plan Your Trip</h3>
+          <p>Get recommendations for places to visit in New York State.</p>
+        </div>
 
-      <div class="feature">
-        <h3>Discover Food</h3>
-        <p>Find restaurants nearby based on your preferences and budget.</p>
-      </div>
+        <div class="feature">
+          <h3>Discover Food</h3>
+          <p>Find restaurants nearby based on your preferences and budget.</p>
+        </div>
 
-      <div class="feature">
-        <h3>Create Itineraries</h3>
-        <p>Build a daily plan for your trip automatically.</p>
+        <div class="feature">
+          <h3>Create Itineraries</h3>
+          <p>Build a daily plan for your trip automatically.</p>
+        </div>
       </div>
-    </div>
     </main>
 
-    <!-- How the button interacts. -->
-    <script src="app.js"></script>
-
-    <!-- Credits/foot note for the team -->
-     <footer>
+    <footer>
       <p>2025 travelSmart Project for PLC</p>
-      <p> By: Adrian Wu, Kisn Mathema, Aaron Zhang, Andy Shao, Lamin Yabou</p>
-     </footer>
+      <p>By: Adrian Wu, Kisn Mathema, Aaron Zhang, Andy Shao, Lamin Yabou</p>
+    </footer>
   </body>
 </html>
