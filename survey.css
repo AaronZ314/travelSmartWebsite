@@ -1,0 +1,28 @@
+h2{
+  color: #9e2a2b;
+}
+
+.survey-form label {
+    display: block;
+    padding-top: 5px;
+}
+
+.survey-list {
+        margin-top: 2em;
+    }
+    .survey-entry {
+        background: #f3f6ff;
+        border: 1px solid #c6dbf7;
+        padding: 1em; margin-bottom: 1em;
+        border-radius: 0.3em;
+    }
+    .survey-results {
+        margin-top: 1em;
+        background: #e8f0fe;
+        border: 1px solid #c6dbf7;
+        padding: 1em;
+        border-radius: 0.3em;
+    }
+    .actions {
+        margin: 1em 0;
+    }

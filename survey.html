@@ -4,15 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>travelSmart Survey</title>
+  <script src="survey.js"></script> 
   <link rel="stylesheet" href="style.css">
-  <style>
-    .survey-list { margin-top: 2em; }
-    .survey-entry { background: #f3f6ff; border: 1px solid #c6dbf7; padding: 1em; margin-bottom: 1em; border-radius: 0.3em; }
-    .survey-results { margin-top: 1em; background: #e8f0fe; border: 1px solid #c6dbf7; padding: 1em; border-radius: 0.3em; }
-    .actions { margin: 1em 0; }
-  </style>
+  <link rel="stylesheet" href="survey.css">
 </head>
 <body>
+  <h1>travelSmart</h1>
   <nav>
     <a href="./index.html">Home</a>
     <a href="./survey.html">Survey</a>
@@ -20,10 +17,6 @@
     <a href="./foods.html">Foods</a>
   </nav>
   <main>
-    <h1>travelSmart Survey</h1>
-    <div class="actions">
-      <button id="newSurveyBtn" class="cta-button" type="button">New Survey</button>
-    </div>
     <form id="surveyForm" class="survey-form">
       <section>
         <h2>Travel Preferences</h2>
@@ -99,7 +92,7 @@
           </select>
         </label>
         <label>
-          Should recommendations strictly match your budget, or are occasional splurges acceptable?
+          Should recommendations strictly match your budget?
           <select name="strictBudget" required>
             <option value="">Select one…</option>
             <option>Strictly match budget</option>
@@ -128,79 +121,5 @@
     <p>2025 travelSmart Project for PLC</p>
     <p>By: Adrian Wu, Kisn Mathema, Aaron Zhang, Andy Shao, Lamin Yabou</p>
   </footer>
-  <script>
-    // Utility to display survey data
-    function renderSurvey(data) {
-      return `<div class="survey-entry">
-        <strong>Attractions:</strong> ${data.attractions}<br>
-        <strong>Climate:</strong> ${data.climate}<br>
-        <strong>Distance:</strong> ${data.distance}<br>
-        <strong>Cuisine:</strong> ${data.cuisine}<br>
-        <strong>Restrictions:</strong> ${data.restrictions}<br>
-        <strong>Dining Style:</strong> ${data.diningStyle}<br>
-        <strong>Trip Budget:</strong> ${data.tripBudget}<br>
-        <strong>Meal Budget:</strong> ${data.mealBudget}<br>
-        <strong>Budget Strictness:</strong> ${data.strictBudget}
-        </div>`;
-    }
-
-    // Load previous surveys from localStorage
-    function loadSurveys() {
-      const saved = localStorage.getItem("travelSmartSurveys");
-      return saved ? JSON.parse(saved) : [];
-    }
-    function saveSurvey(newSurvey) {
-      const surveys = loadSurveys();
-      surveys.push(newSurvey);
-      localStorage.setItem("travelSmartSurveys", JSON.stringify(surveys));
-    }
-    function showSurveys() {
-      const surveys = loadSurveys();
-      const previousDiv = document.getElementById("previousSurveys");
-      if (!surveys.length) {
-        previousDiv.innerHTML = "<p>No previous surveys yet.</p>";
-      } else {
-        previousDiv.innerHTML = surveys.slice(0,-1).reverse().map(renderSurvey).join("");
-      }
-    }
-
-    // Show latest survey results
-    function showLatestSurvey() {
-      const surveys = loadSurveys();
-      if (surveys.length) {
-        document.getElementById("latestSurvey").style.display = "block";
-        document.getElementById("latestResults").innerHTML = renderSurvey(surveys[surveys.length-1]);
-      } else {
-        document.getElementById("latestSurvey").style.display = "none";
-        document.getElementById("latestResults").innerHTML = "";
-      }
-    }
-
-    // Reset to allow new survey
-    function startNewSurvey() {
-      document.getElementById('surveyForm').reset();
-      document.getElementById('confirmation').style.display = 'none';
-      document.getElementById('latestSurvey').style.display = 'none';
-    }
-
-    // Survey submit handler
-    document.getElementById('surveyForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const formData = new FormData(event.target);
-      const data = {};
-      for (const [key, value] of formData.entries()) { data[key] = value; }
-      saveSurvey(data);
-      document.getElementById('confirmation').style.display = 'block';
-      showLatestSurvey();
-      showSurveys();
-    });
-
-    // Handle "New Survey" button
-    document.getElementById('newSurveyBtn').addEventListener('click', startNewSurvey);
-
-    // Show surveys on load
-    showLatestSurvey();
-    showSurveys();
-  </script>
 </body>
 </html>
