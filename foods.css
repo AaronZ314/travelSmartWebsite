@@ -1,10 +1,9 @@
 .page-title {
   text-align: center;
   margin-top: 1rem;
-  color: #9e2a2b;
 }
 
-.places-list {
+.foods-list {
   max-width: 900px;
   margin: 1.5rem auto 3rem auto;
   display: flex;
@@ -12,7 +11,7 @@
   gap: 1.5rem;
 }
 
-.place-card {
+.food-card {
   display: flex;
   gap: 1rem;
   background: #ffffff;
@@ -22,7 +21,7 @@
   align-items: center;
 }
 
-.place-image {
+.food-image {
   flex: 0 0 120px;
   height: 120px;
   border-radius: 12px;
@@ -31,10 +30,10 @@
   align-items: center;
   justify-content: center;
   color: #777;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
-.place-content {
+.food-content {
   flex: 1;
   display: flex;
   justify-content: space-between;
@@ -42,19 +41,24 @@
   gap: 1rem;
 }
 
-.place-text h3 {
+/* LEFT align text block explicitly */
+.food-text {
+  text-align: left;
+}
+
+.food-text h3 {
   margin: 0 0 0.25rem 0;
 }
 
-.place-text p {
+.food-text p {
   margin: 0.1rem 0;
 }
 
-.place-actions {
+.food-actions {
   text-align: right;
 }
 
-.place-actions .website-btn {
+.food-actions .website-btn {
   display: inline-block;
   padding: 0.4em 1.1em;
   background: #4185F4;
@@ -67,22 +71,22 @@
   transition: background 0.15s, transform 0.07s;
 }
 
-.place-actions .website-btn:hover {
+.food-actions .website-btn:hover {
   background: #185abc;
   transform: scale(1.03);
 }
 
 /* Responsive: stack on small screens */
 @media (max-width: 600px) {
-  .place-card {
+  .food-card {
     flex-direction: column;
     align-items: flex-start;
   }
-  .place-content {
+  .food-content {
     flex-direction: column;
     align-items: flex-start;
   }
-  .place-actions {
+  .food-actions {
     align-self: flex-end;
   }
 }
