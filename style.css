@@ -1,8 +1,16 @@
+/* Default look for our website. Please do not add things here you do not want applied for all pages */
 /* This is the looks of the website. The body sets font and center for all text */
 body{
   background-color: #f5f0d9;
   font-family: Arial, sans-serif;
   text-align: center;
+}
+
+/* i centered the stuff a bit on all pages let me know if you guys think it looks nicer in the browser -aaron */
+main{
+  margin:auto;
+  align-items: center;
+  max-width: 60em;
 }
 
 /* This one is for the main site's title */
@@ -116,6 +124,8 @@ footer{
   text-align: center;
   margin-top: 2em;
 }
+/* call to action button. Basically for big buttons
+you want people to click */
 .cta-button {
         display: inline-block;
         background: #fff;

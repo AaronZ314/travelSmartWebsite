@@ -4,19 +4,19 @@ const places = [
     name: "Central Park",
     description: "Large urban park with walking paths, lakes, and open fields.",
     location: "Manhattan, NYC",
-    website: "https://www.centralparknyc.org/"
+    ai_overview: "https://www.centralparknyc.org/"
   },
   {
     name: "Brooklyn Museum",
     description: "One of the largest and oldest art museums in the United States.",
     location: "Brooklyn, NYC",
-    website: "https://www.brooklynmuseum.org/"
+    ai_overview: "https://www.brooklynmuseum.org/"
   },
   {
     name: "Flushing Meadows–Corona Park",
     description: "Historic park known for the Unisphere and wide open spaces.",
     location: "Queens, NYC",
-    website: "https://www.nycgovparks.org/parks/flushing-meadows-corona-park"
+    ai_overview: "https://www.nycgovparks.org/parks/flushing-meadows-corona-park"
   }
 ];
 
@@ -42,14 +42,14 @@ function createPlaceCard(place, index) {
   const actionsDiv = document.createElement("div");
   actionsDiv.className = "place-actions";
 
-  const websiteLink = document.createElement("a");
-  websiteLink.className = "website-btn";
-  websiteLink.href = place.website;
-  websiteLink.target = "_blank";
-  websiteLink.rel = "noopener noreferrer";
-  websiteLink.textContent = "Website";
+  const aiLink = document.createElement("a");
+  aiLink.className = "website-btn";
+  aiLink.href = place.website;
+  aiLink.target = "_blank";
+  aiLink.rel = "noopener noreferrer";
+  aiLink.textContent = "AI Overview";
 
-  actionsDiv.appendChild(websiteLink);
+  actionsDiv.appendChild(aiLink);
 
   contentDiv.appendChild(textDiv);
   contentDiv.appendChild(actionsDiv);

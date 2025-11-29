@@ -1,3 +1,88 @@
-h2 {
+.page-title {
+  text-align: center;
+  margin-top: 1rem;
   color: #9e2a2b;
+}
+
+.places-list {
+  max-width: 900px;
+  margin: 1.5rem auto 3rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.place-card {
+  display: flex;
+  gap: 1rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  padding: 1rem 1.25rem;
+  align-items: center;
+}
+
+.place-image {
+  flex: 0 0 120px;
+  height: 120px;
+  border-radius: 12px;
+  background-color: #e0e0e0; /* empty placeholder */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-size: 1.2rem;
+}
+
+.place-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.place-text h3 {
+  margin: 0 0 0.25rem 0;
+}
+
+.place-text p {
+  margin: 0.1rem 0;
+}
+
+.place-actions {
+  text-align: right;
+}
+
+.place-actions .website-btn {
+  display: inline-block;
+  padding: 0.4em 1.1em;
+  background: #4185F4;
+  color: #fff;
+  border-radius: 999px;
+  border: none;
+  text-decoration: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.07s;
+}
+
+.place-actions .website-btn:hover {
+  background: #185abc;
+  transform: scale(1.03);
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 600px) {
+  .place-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .place-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .place-actions {
+    align-self: flex-end;
+  }
 }
