@@ -1,10 +1,23 @@
 h2{
-  color: #9e2a2b;
+  margin-bottom: 8px;
+  padding-top:20px;
+}
+
+select,input{
+    border-radius: 20px;
+    border:none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+section{
+    background-color: #f3f6ff;
+    padding-bottom: 20px;
+    
 }
 
 .survey-form label {
     display: block;
-    padding-top: 5px;
+    padding: 10px;
 }
 
 .survey-list {
