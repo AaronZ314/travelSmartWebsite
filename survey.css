@@ -1,41 +1,87 @@
-h2{
+/* Headings */
+h2 {
+  color: #9e2a2b;
   margin-bottom: 8px;
-  padding-top:20px;
+  padding-top: 20px;
 }
 
-select,input{
-    border-radius: 20px;
-    border:none;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+/* Inputs and selects (mate's styling) */
+select,
+input {
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-section{
-    background-color: #f3f6ff;
-    padding-bottom: 20px;
-    
+/* Section background (mate's styling) */
+section {
+  background-color: #f3f6ff;
+  padding-bottom: 20px;
 }
 
+/* Survey labels (merge: your spacing + mate's padding) */
 .survey-form label {
-    display: block;
-    padding: 10px;
+  display: block;
+  padding: 10px;
+  margin-bottom: 1.2em;
+  text-align: left;
 }
 
+/* List containers */
 .survey-list {
-        margin-top: 2em;
-    }
-    .survey-entry {
-        background: #f3f6ff;
-        border: 1px solid #c6dbf7;
-        padding: 1em; margin-bottom: 1em;
-        border-radius: 0.3em;
-    }
-    .survey-results {
-        margin-top: 1em;
-        background: #e8f0fe;
-        border: 1px solid #c6dbf7;
-        padding: 1em;
-        border-radius: 0.3em;
-    }
-    .actions {
-        margin: 1em 0;
-    }
+  margin-top: 2em;
+}
+
+/* Individual survey entries (your version with position:relative) */
+.survey-entry {
+  position: relative;              /* for absolute delete button */
+  background: #f3f6ff;
+  border: 1px solid #c6dbf7;
+  padding: 1.5em 1.5em 1em 1.5em;  /* extra top/right space for button */
+  margin-bottom: 1em;
+  border-radius: 0.3em;
+}
+
+/* Latest survey box */
+.survey-results {
+  margin-top: 1em;
+  background: #e8f0fe;
+  border: 1px solid #c6dbf7;
+  padding: 1em;
+  border-radius: 0.3em;
+}
+
+.actions {
+  margin: 1em 0;
+}
+
+/* Rounded rectangular blue delete button in top-right of each survey card */
+.delete-btn {
+  position: absolute;
+  top: 0.6em;
+  right: 0.8em;
+  min-width: 70px;
+  height: 32px;
+  border-radius: 16px;
+  border: none;
+  background-color: #4185F4;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.8em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background 0.15s, transform 0.07s;
+  opacity: 1;
+  visibility: visible;
+}
+
+.delete-btn:hover {
+  background-color: #185abc;
+  transform: scale(1.03);
+  opacity: 1;
+  visibility: visible;
+}
