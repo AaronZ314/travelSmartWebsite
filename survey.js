@@ -1,35 +1,36 @@
-// Utility to display survey data with delete button (for previous surveys)
+// Utility for previous surveys (with delete button)
 function renderSurveyWithDelete(data, index) {
-  return `<div class="survey-entry">
-    <button class="delete-btn" data-delete-index="${index}">Delete</button>
-    <strong>Attractions:</strong> ${data.attractions}<br>
-    <strong>Climate:</strong> ${data.climate}<br>
-    <strong>Distance:</strong> ${data.distance}<br>
-    <strong>Cuisine:</strong> ${data.cuisine}<br>
-    <strong>Restrictions:</strong> ${data.restrictions}<br>
-    <strong>Dining Style:</strong> ${data.diningStyle}<br>
-    <strong>Trip Budget:</strong> ${data.tripBudget}<br>
-    <strong>Meal Budget:</strong> ${data.mealBudget}<br>
-    <strong>Budget Strictness:</strong> ${data.strictBudget}
-  </div>`;
+  return `
+    <div class="survey-entry">
+      <button class="delete-btn" data-delete-index="${index}">Delete</button>
+      <strong>Attractions:</strong> ${data.attractions}<br>
+      <strong>Climate:</strong> ${data.climate}<br>
+      <strong>Distance:</strong> ${data.distance}<br>
+      <strong>Cuisine:</strong> ${data.cuisine}<br>
+      <strong>Restrictions:</strong> ${data.restrictions}<br>
+      <strong>Dining Style:</strong> ${data.diningStyle}<br>
+      <strong>Trip Budget:</strong> ${data.tripBudget}<br>
+      <strong>Meal Budget:</strong> ${data.mealBudget}<br>
+      <strong>Budget Strictness:</strong> ${data.strictBudget}
+    </div>`;
 }
 
 // Utility for the latest survey (no delete button)
 function renderSurvey(data) {
-  return `<div class="survey-entry">
-    <strong>Attractions:</strong> ${data.attractions}<br>
-    <strong>Climate:</strong> ${data.climate}<br>
-    <strong>Distance:</strong> ${data.distance}<br>
-    <strong>Cuisine:</strong> ${data.cuisine}<br>
-    <strong>Restrictions:</strong> ${data.restrictions}<br>
-    <strong>Dining Style:</strong> ${data.diningStyle}<br>
-    <strong>Trip Budget:</strong> ${data.tripBudget}<br>
-    <strong>Meal Budget:</strong> ${data.mealBudget}<br>
-    <strong>Budget Strictness:</strong> ${data.strictBudget}
-  </div>`;
+  return `
+    <div class="survey-entry">
+      <strong>Attractions:</strong> ${data.attractions}<br>
+      <strong>Climate:</strong> ${data.climate}<br>
+      <strong>Distance:</strong> ${data.distance}<br>
+      <strong>Cuisine:</strong> ${data.cuisine}<br>
+      <strong>Restrictions:</strong> ${data.restrictions}<br>
+      <strong>Dining Style:</strong> ${data.diningStyle}<br>
+      <strong>Trip Budget:</strong> ${data.tripBudget}<br>
+      <strong>Meal Budget:</strong> ${data.mealBudget}<br>
+      <strong>Budget Strictness:</strong> ${data.strictBudget}
+    </div>`;
 }
 
-// Load previous surveys from localStorage
 function loadSurveys() {
   const saved = localStorage.getItem("travelSmartSurveys");
   return saved ? JSON.parse(saved) : [];
@@ -51,17 +52,17 @@ function deleteSurvey(index) {
 
 async function saveSurveyBackend(data) {
   try {
-    const response = await fetch("http://127.0.0.1:5000/api/surveys", {
+    const res = await fetch("http://127.0.0.1:5000/api/surveys", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
 
-    if (!response.ok) {
-      console.error("Backend survey submission failed.");
+    if (!res.ok) {
+      console.error("Backend did NOT accept the survey.");
     }
   } catch (err) {
-    console.error("Error sending survey to backend:", err);
+    console.error("Error connecting to backend:", err);
   }
 }
 
@@ -69,7 +70,7 @@ function showSurveys() {
   const surveys = loadSurveys();
   const previousDiv = document.getElementById("previousSurveys");
 
-  if (!surveys.length || surveys.length === 1) {
+  if (surveys.length <= 1) {
     previousDiv.innerHTML = "<p>No previous surveys yet.</p>";
     return;
   }
@@ -83,7 +84,7 @@ function showSurveys() {
 
   const deleteButtons = previousDiv.querySelectorAll(".delete-btn");
   deleteButtons.forEach(btn => {
-    btn.addEventListener("click", function () {
+    btn.addEventListener("click", () => {
       const idx = parseInt(btn.getAttribute("data-delete-index"));
       deleteSurvey(idx);
     });
@@ -92,18 +93,20 @@ function showSurveys() {
 
 function showLatestSurvey() {
   const surveys = loadSurveys();
+  const latestDiv = document.getElementById("latestSurvey");
+  const resultsDiv = document.getElementById("latestResults");
 
-  if (surveys.length) {
-    document.getElementById("latestSurvey").style.display = "block";
-    document.getElementById("latestResults").innerHTML =
-      renderSurvey(surveys[surveys.length - 1]);
-  } else {
-    document.getElementById("latestSurvey").style.display = "none";
-    document.getElementById("latestResults").innerHTML = "";
+  if (!surveys.length) {
+    latestDiv.style.display = "none";
+    resultsDiv.innerHTML = "";
+    return;
   }
+
+  latestDiv.style.display = "block";
+  resultsDiv.innerHTML = renderSurvey(surveys[surveys.length - 1]);
 }
 
-document.getElementById("surveyForm").addEventListener("submit", async function (event) {
+document.getElementById("surveyForm").addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const formData = new FormData(event.target);
@@ -112,20 +115,77 @@ document.getElementById("surveyForm").addEventListener("submit", async function 
     data[key] = value;
   }
 
-  saveSurveyLocal(data);
+  saveSurvey(data);
 
   await saveSurveyBackend(data);
 
   document.getElementById("confirmation").style.display = "block";
   showLatestSurvey();
   showSurveys();
+
+  try {
+    const res = await fetch("http://127.0.0.1:5000/api/recommend-summary");
+    const summary = await res.json();
+    showRecommendationModal(summary);
+  } catch (err) {
+    console.error("Error fetching recommendation summary:", err);
+  }
 });
 
-document.getElementById("newSurveyBtn").addEventListener("click", function () {
+document.getElementById("newSurveyBtn").addEventListener("click", () => {
   document.getElementById("surveyForm").reset();
   document.getElementById("confirmation").style.display = "none";
   document.getElementById("latestSurvey").style.display = "none";
 });
+
+function showRecommendationModal(rec) {
+  const modal = document.getElementById("resultModal");
+  const foodDiv = document.getElementById("modalFood");
+  const placeDiv = document.getElementById("modalPlace");
+
+  if (!modal || !foodDiv || !placeDiv) {
+    console.warn("Modal elements missing in HTML.");
+    return;
+  }
+
+  if (rec.error) {
+    foodDiv.innerHTML = "<p>No survey found — complete one first!</p>";
+    placeDiv.innerHTML = "";
+  } else {
+    const food = rec.food || {};
+    const place = rec.place || {};
+
+    foodDiv.innerHTML = `
+      <h3>Recommended Food: ${food.name || "N/A"}</h3>
+      <p>${food.description || ""}</p>
+      <p><strong>Location:</strong> ${food.location || ""}</p>
+    `;
+
+    placeDiv.innerHTML = `
+      <h3>Recommended Place: ${place.name || "N/A"}</h3>
+      <p>${place.description || ""}</p>
+      <p><strong>Location:</strong> ${place.location || place.borough || ""}</p>
+    `;
+  }
+
+  modal.style.display = "flex";
+}
+
+const closeBtn = document.getElementById("closeModalBtn");
+if (closeBtn) {
+  closeBtn.addEventListener("click", () => {
+    document.getElementById("resultModal").style.display = "none";
+  });
+}
+
+const modalRoot = document.getElementById("resultModal");
+if (modalRoot) {
+  modalRoot.addEventListener("click", (e) => {
+    if (e.target.id === "resultModal") {
+      modalRoot.style.display = "none";
+    }
+  });
+}
 
 showLatestSurvey();
 showSurveys();
