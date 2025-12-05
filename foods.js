@@ -1,24 +1,12 @@
-// Sample static restaurant data for now
-const foods = [
-  {
-    name: "Joe's Pizza",
-    description: "Classic New York–style slices with a crispy thin crust.",
-    location: "Greenwich Village, Manhattan",
-    website: "https://www.joespizzanyc.com/"
-  },
-  {
-    name: "Katz's Delicatessen",
-    description: "Famous deli known for pastrami sandwiches and classic NYC vibes.",
-    location: "Lower East Side, Manhattan",
-    website: "https://katzsdelicatessen.com/"
-  },
-  {
-    name: "Di Fara Pizza",
-    description: "Legendary Brooklyn pizzeria with hand-crafted pies.",
-    location: "Midwood, Brooklyn",
-    website: "https://difarapizzany.com/"
+async function fetchFoods() {
+  try {
+    const response = await fetch("http://127.0.0.1:5000/api/foods");
+    return await response.json(); // returns array of foods
+  } catch (error) {
+    console.error("Error fetching foods:", error);
+    return []; // return empty list on error
   }
-];
+}
 
 function createFoodCard(food, index) {
   const card = document.createElement("article");
@@ -26,7 +14,7 @@ function createFoodCard(food, index) {
 
   const imgDiv = document.createElement("div");
   imgDiv.className = "food-image";
-  imgDiv.textContent = `Image ${index + 1}`; // placeholder for now
+  imgDiv.textContent = `Image ${index + 1}`;
 
   const contentDiv = document.createElement("div");
   contentDiv.className = "food-content";
@@ -36,6 +24,7 @@ function createFoodCard(food, index) {
   textDiv.innerHTML = `
     <h3>${food.name}</h3>
     <p>${food.description}</p>
+    <p><strong>Cuisine:</strong> ${food.cuisine}</p>
     <p><strong>Location:</strong> ${food.location}</p>
   `;
 
@@ -53,17 +42,26 @@ function createFoodCard(food, index) {
 
   contentDiv.appendChild(textDiv);
   contentDiv.appendChild(actionsDiv);
-
   card.appendChild(imgDiv);
   card.appendChild(contentDiv);
 
   return card;
 }
 
-function renderFoods() {
-  const list = document.getElementById("foodsList");
+async function renderFoods() {
+  const foodsList = document.getElementById("foodsList");
+
+  if (!foodsList) {
+    console.error("Element with ID 'foodsList' not found.");
+    return;
+  }
+
+  foodsList.innerHTML = "";
+
+  const foods = await fetchFoods();
+
   foods.forEach((food, idx) => {
-    list.appendChild(createFoodCard(food, idx));
+    foodsList.appendChild(createFoodCard(food, idx));
   });
 }
 
