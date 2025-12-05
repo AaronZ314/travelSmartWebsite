@@ -11,36 +11,58 @@ def home():
     <h1>travelSmart Flask backend is running</h1>
     <p>Available endpoints (click one):</p>
     <ul>
-        <li><a href="/api/places">Places</a></li>
-        <li><a href="/api/foods">All foods</a></li>
-        <li><a href="/api/surveys">Surveys</a></li>
-        <li><a href="/api/recommend-places">Recommendations</a></li>
-        <li><a href="/api/hotels">All hotels</a></li>
+        <li><a href="/api/places">Places (HTML)</a></li>
+        <li><a href="/api/foods">All foods (JSON)</a></li>
+        <li><a href="/api/hotels">Hotels (HTML)</a></li>
+        <li><a href="/api/recommend-summary">Recommend food + place (JSON)</a></li>
     </ul>
     """
 
 
+# -------------------- DATA --------------------
 
-# Places data
+# Main attractions in Manhattan and Brooklyn
 places = [
-    {"name": "Central Park", 
-     "borough": "Manhattan"
+    {
+        "name": "Central Park",
+        "borough": "Manhattan",
+        "description": "Large urban park with walking paths, lakes, and open fields.",
+        "location": "Manhattan, NYC"
     },
-    {"name": "Brooklyn Bridge Park", 
-     "borough": "Brooklyn"
+    {
+        "name": "Times Square",
+        "borough": "Manhattan",
+        "description": "Bright lights, Broadway shows, and a busy commercial district.",
+        "location": "Midtown Manhattan, NYC"
     },
+    {
+        "name": "Brooklyn Bridge Park",
+        "borough": "Brooklyn",
+        "description": "Waterfront park with skyline views and walking paths along the East River.",
+        "location": "DUMBO / Brooklyn Heights, Brooklyn, NYC"
+    },
+    {
+        "name": "Prospect Park",
+        "borough": "Brooklyn",
+        "description": "Major Brooklyn park with meadows, a lake, and wooded trails.",
+        "location": "Prospect Park, Brooklyn, NYC"
+    }
 ]
 
-# Foods data
+# Quick lookup by place name
+place_by_name = {p["name"]: p for p in places}
+
+# Food spots, each linked to a nearby attraction
 foods = [
     {
         "name": "Katz's Delicatessen",
         "borough": "Manhattan",
         "type": "Restaurant",
         "cuisine": "Jewish Deli",
-        "description": "Iconic NYC deli famous for pastrami sandwiches and classic Lower East Side vibes.",
+        "description": "Iconic deli famous for pastrami sandwiches and classic Lower East Side vibes.",
         "location": "Lower East Side, Manhattan",
-        "website": "https://katzsdelicatessen.com/"
+        "website": "https://katzsdelicatessen.com/",
+        "nearby_place_name": "Times Square"
     },
     {
         "name": "Joe's Pizza",
@@ -49,137 +71,52 @@ foods = [
         "cuisine": "Pizza",
         "description": "Classic New York–style pizza slices with a thin, crispy crust.",
         "location": "Greenwich Village, Manhattan",
-        "website": "https://www.joespizzanyc.com/"
+        "website": "https://www.joespizzanyc.com/",
+        "nearby_place_name": "Central Park"
     },
     {
         "name": "Levain Bakery",
         "borough": "Manhattan",
         "type": "Bakery",
-        "cuisine": "Bakery",
-        "description": "Famous bakery known for giant, gooey cookies and fresh baked goods.",
+        "cuisine": "Bakery / Dessert",
+        "description": "Famous bakery known for giant cookies and fresh baked goods.",
         "location": "Upper West Side, Manhattan",
-        "website": "https://levainbakery.com/"
+        "website": "https://levainbakery.com/",
+        "nearby_place_name": "Central Park"
     },
     {
-        "name": "Los Tacos No. 1",
-        "borough": "Manhattan",
-        "type": "Restaurant",
-        "cuisine": "Mexican",
-        "description": "Popular spot for authentic, fast casual tacos and Mexican street food.",
-        "location": "Chelsea Market, Manhattan",
-        "website": "https://lostacosno1.com/"
-    },
-    {
-        "name": "Xi’an Famous Foods",
-        "borough": "Manhattan",
-        "type": "Restaurant",
-        "cuisine": "Chinese",
-        "description": "Casual eatery known for hand-pulled noodles and spicy Western Chinese dishes.",
-        "location": "Multiple locations in Manhattan",
-        "website": "https://www.xianfoods.com/"
-    },  
-    {
-        "name": "Katz's Delicatessen",
-        "borough": "Manhattan",
-        "type": "Restaurant",
-        "cuisine": "Jewish / Deli",
-        "description": "Historic kosher-style delicatessen known for its massive pastrami (and corned beef) sandwiches — a New York classic.",
-        "location": "205 East Houston Street, Lower East Side, Manhattan, NY 10002",
-        "website": ""
-    },
-    {
-        "name": "Marea",
-        "borough": "Manhattan",
-        "type": "Restaurant",
-        "cuisine": "Italian / Seafood",
-        "description": "Upscale Italian and seafood restaurant near Columbus Circle — recognized as one of the city's top Italian-seafood spots.",
-        "location": "240 Central Park South, Manhattan, NY 10019",
-        "website": ""
-    },
-    {
-        "name": "Jean-Georges",
-        "borough": "Manhattan",
-        "type": "Restaurant",
-        "cuisine": "French / New American",
-        "description": "Flagship restaurant mixing French and New American cuisine, with seasonal menus and high-end dining near Central Park.",
-        "location": "1 Central Park West (at Columbus Circle), Manhattan, NY",
-        "website": ""
-    },
-    {
-        "name": "Gramercy Tavern",
-        "borough": "Manhattan",
-        "type": "Restaurant",
-        "cuisine": "New American",
-        "description": "Beloved farm-to-table New American tavern and dining room, known for its warm hospitality and seasonal dishes.",
-        "location": "Flatiron/Gramercy area, Manhattan, NY",
-        "website": ""
-    },
-    {
-        "name": "César",
-        "borough": "Manhattan",
-        "type": "Restaurant",
-        "cuisine": "Seafood / Contemporary",
-        "description": "Michelin-starred seafood restaurant opened in 2024, offering refined seafood-forward dishes in Hudson Square.",
-        "location": "333 Hudson Street, Hudson Square, Manhattan, NY 10013",
-        "website": "https://www.cesar.restaurant/"
-    },
-    {
-        "name": "Lucali",
+        "name": "Juliana's Pizza",
         "borough": "Brooklyn",
         "type": "Restaurant",
-        "cuisine": "Italian / Pizza",
-        "description": "Beloved brick-oven pizzeria in Carroll Gardens, known for its Neapolitan-style pies and calzones — often listed among NYC’s best pizza spots.",
-        "location": "575 Henry St, Carroll Gardens, Brooklyn, NY 11231",
-        "website": "https://www.lucali.com/"
-    },
-    {
-        "name": "Di Fara Pizza",
-        "borough": "Brooklyn",
-        "type": "Restaurant",
-        "cuisine": "Pizza / Italian-American",
-        "description": "Legendary pizzeria in Midwood — frequently called one of the best pizza spots in NYC, famous for its classic handmade pies and decades-old tradition.",
-        "location": "1424 Avenue J, Midwood, Brooklyn, NY 11230",
-        "website": "http://www.difarapizzany.com/"
-    },
-    {
-        "name": "L&B Spumoni Gardens",
-        "borough": "Brooklyn",
-        "type": "Restaurant",
-        "cuisine": "Italian-American / Sicilian Pizza",
-        "description": "Historic Italian-American pizzeria and restaurant (est. 1939), famous for its Sicilian square-slice pizza and classic spumoni desserts.",
-        "location": "2725 86th Street, Gravesend, Brooklyn, NY 11223",
-        "website": "https://spumonigardens.com/"
-    },
-    {
-        "name": "Randazzo's Clam Bar",
-        "borough": "Brooklyn",
-        "type": "Restaurant",
-        "cuisine": "Seafood / Italian-American",
-        "description": "Old-school seafood institution in Sheepshead Bay (opened 1963), known for generous portions, clam dishes, lobster fra diavolo, and longtime loyal customers.",
-        "location": "2017 Emmons Avenue, Sheepshead Bay, Brooklyn, NY 11235",
-        "website": "http://randazzosclambar.nyc/"
+        "cuisine": "Pizza / Italian",
+        "description": "Coal‑fired pizzeria near the Brooklyn waterfront.",
+        "location": "DUMBO, Brooklyn",
+        "website": "https://www.julianaspizza.com/",
+        "nearby_place_name": "Brooklyn Bridge Park"
     },
     {
         "name": "Oxomoco",
         "borough": "Brooklyn",
         "type": "Restaurant",
         "cuisine": "Mexican",
-        "description": "Wood-fired Mexican restaurant in Greenpoint — Michelin-starred, celebrated for inventive tacos and wood-grilled dishes, blending traditional flavors with modern technique.",
-        "location": "128 Greenpoint Avenue, Greenpoint, Brooklyn, NY 11222",
-        "website": "https://oxomoconyc.com/"
+        "description": "Wood‑fired Mexican restaurant in Greenpoint.",
+        "location": "Greenpoint, Brooklyn",
+        "website": "https://oxomoconyc.com/",
+        "nearby_place_name": "Brooklyn Bridge Park"
     },
     {
-        "name": "A&A Bake and Doubles Shop",
+        "name": "Di Fara Pizza",
         "borough": "Brooklyn",
         "type": "Restaurant",
-        "cuisine": "Trinidadian / Caribbean",
-        "description": "Bed-Stuy restaurant serving Trinidad and Tobago–style doubles, aloo pies and other Caribbean comfort food — praised for authenticity and vibrant flavors.",
-        "location": "Bed-Stuy, Brooklyn, NY",
-        "website": ""
+        "cuisine": "Pizza / Italian-American",
+        "description": "Legendary pizzeria famous for hand‑crafted pies.",
+        "location": "Midwood, Brooklyn",
+        "website": "http://www.difarapizzany.com/",
+        "nearby_place_name": "Prospect Park"
     }
 ]
 
-# Hotel data
+# Example hotels (not used by the popup but kept for completeness)
 hotels = [
     {
         "name": "Manhattan Hotel",
@@ -201,8 +138,12 @@ hotels = [
     }
 ]
 
+
+# -------------------- BASIC ENDPOINTS --------------------
+
 @app.route("/api/places", methods=["GET"])
 def get_places():
+    """Simple HTML page listing places with quick links."""
     html = """
     <h2>Places</h2>
     <ul>
@@ -213,7 +154,7 @@ def get_places():
         html += f"""
         <li>
           {name} ({borough})
-          - <a href="/api/foods?borough={borough}">food in {borough}</a>
+          - <a href="/api/foods?borough={borough}">Food in {borough}</a>
           - <a href="/api/hotels-data?borough={borough}">Hotels in {borough}</a>
         </li>
         """
@@ -222,7 +163,6 @@ def get_places():
     <p><a href="/">Back home</a></p>
     """
     return html
-
 
 
 @app.route("/api/foods", methods=["GET"])
@@ -235,8 +175,9 @@ def get_foods():
     return jsonify(foods)
 
 
-# In‑memory survey storage
-surveys = []
+# -------------------- SURVEYS --------------------
+
+surveys = []  # in‑memory storage
 
 
 @app.route("/api/surveys", methods=["POST"])
@@ -249,38 +190,81 @@ def save_survey():
     return jsonify({"status": "ok", "count": len(surveys)})
 
 
-@app.route("/api/recommend-places", methods=["GET"])
-def recommend_places():
+# -------------------- RECOMMENDATION ("AI") --------------------
+
+@app.route("/api/recommend-summary", methods=["GET"])
+def recommend_summary():
     """
-    Simple 'AI' endpoint:
-    use the most recent survey's 'cuisine' or 'attractions' field to filter.
+    Use the most recent survey to recommend:
+    - one food place (based on cuisine + borough),
+    - one nearby attraction for that food.
+    Returns JSON: {"food": {...}, "place": {...}}.
     """
     if not surveys:
-        return jsonify(places)
+        return jsonify({"error": "no-surveys"}), 400
 
     last = surveys[-1]
-    preferred_cuisine = last.get("cuisine")
-    preferred_type = last.get("attractions")
 
-    # Try cuisine-based match first
-    if preferred_cuisine:
-        matched = [
-            p for p in places
-            if preferred_cuisine.lower() in p.get("cuisine", "").lower()
-        ]
-        if matched:
-            return jsonify(matched)
+    # These keys must match your survey form field names
+    pref_cuisine = (last.get("cuisine") or "").lower()       # free‑text cuisine
+    distance = last.get("distance")                          # "Within 30 minutes", "Within 1 hour", etc.
 
-    # Then type-based match (if you align attractions with type)
-    if preferred_type:
-        matched = [p for p in places if p["type"].lower() == preferred_type.lower()]
-        if matched:
-            return jsonify(matched)
+    # Simple rule to infer borough from distance answer
+    if distance == "Within 30 minutes":
+        preferred_borough = "Manhattan"
+    elif distance == "Within 1 hour":
+        preferred_borough = "Brooklyn"
+    else:
+        preferred_borough = "Manhattan"
 
-    # Fallback: return all
-    return jsonify(places)
+    # 1) Choose a food: try cuisine + borough, then fallbacks
+    chosen_food = None
 
-# data for hotels (filter by borough)
+    # cuisine + borough match
+    if pref_cuisine:
+        for f in foods:
+            if preferred_borough and f["borough"].lower() != preferred_borough.lower():
+                continue
+            if pref_cuisine in f["cuisine"].lower():
+                chosen_food = f
+                break
+
+    # just borough match
+    if chosen_food is None:
+        for f in foods:
+            if f["borough"].lower() == preferred_borough.lower():
+                chosen_food = f
+                break
+
+    # any food
+    if chosen_food is None and foods:
+        chosen_food = foods[0]
+
+    # 2) Find the nearby place for that food
+    chosen_place = None
+    if chosen_food:
+        nearby_name = chosen_food.get("nearby_place_name")
+        if nearby_name and nearby_name in place_by_name:
+            chosen_place = place_by_name[nearby_name]
+
+    # fallback: any place in same borough
+    if chosen_place is None and chosen_food:
+        for p in places:
+            if p["borough"].lower() == chosen_food["borough"].lower():
+                chosen_place = p
+                break
+
+    if chosen_place is None and places:
+        chosen_place = places[0]
+
+    return jsonify({
+        "food": chosen_food,
+        "place": chosen_place
+    })
+
+
+# -------------------- HOTELS (optional) --------------------
+
 @app.route("/api/hotels-data", methods=["GET"])
 def hotels_data():
     borough = request.args.get("borough")
@@ -290,7 +274,6 @@ def hotels_data():
     return jsonify(hotels)
 
 
-# HTML page listing hotels and links
 @app.route("/api/hotels", methods=["GET"])
 def hotels_page():
     return """

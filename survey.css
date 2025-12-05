@@ -1,61 +1,100 @@
-/* Headings */
+/* Page background and heading colors to match home */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #fff7e0;        /* warm cream like home */
+}
+
+h1 {
+  margin: 0;
+  padding: 1rem 1.5rem 0 1.5rem;
+  color: #9e2a2b;                    /* travelSmart maroon */
+  font-size: 2.4rem;
+}
+
 h2 {
   color: #9e2a2b;
   margin-bottom: 8px;
   padding-top: 20px;
 }
 
-/* Inputs and selects (mate's styling) */
+/* Survey section container */
+main section {
+  background-color: #fff5e6;
+  padding: 24px 32px 24px 32px;
+  margin: 16px auto;
+  max-width: 960px;
+  border-radius: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Labels and form controls */
+.survey-form label {
+  display: block;
+  padding-top: 5px;
+  margin-bottom: 1.2em;
+  text-align: left;
+  font-size: 1rem;
+}
+
 select,
 input {
   border-radius: 20px;
   border: none;
+  padding: 0.45rem 0.9rem;
+  font-size: 1rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  background-color: #ffffff;
 }
 
-/* Section background (mate's styling) */
-section {
-  background-color: #f3f6ff;
-  padding-bottom: 20px;
+/* Buttons consistent with other pages */
+.cta-button {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.6rem;
+  border-radius: 999px;
+  border: none;
+  background-color: #ffb347;
+  color: #2b2b2b;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+  transition: background 0.15s, transform 0.08s;
 }
 
-/* Survey labels (merge: your spacing + mate's padding) */
-.survey-form label {
-  display: block;
-  padding: 10px;
-  margin-bottom: 1.2em;
-  text-align: left;
+.cta-button:hover {
+  background-color: #ff9a1a;
+  transform: translateY(-1px);
 }
 
-/* List containers */
+/* Survey list + results cards */
 .survey-list {
   margin-top: 2em;
 }
 
-/* Individual survey entries (your version with position:relative) */
 .survey-entry {
-  position: relative;              /* for absolute delete button */
-  background: #f3f6ff;
-  border: 1px solid #c6dbf7;
-  padding: 1.5em 1.5em 1em 1.5em;  /* extra top/right space for button */
+  position: relative;
+  background: #fffdf7;
+  border: 1px solid #f0d3a4;
+  padding: 1.2em 1.5em 1em 1.5em;
   margin-bottom: 1em;
-  border-radius: 0.3em;
+  border-radius: 0.5em;
 }
 
-/* Latest survey box */
 .survey-results {
   margin-top: 1em;
-  background: #e8f0fe;
-  border: 1px solid #c6dbf7;
+  background: #fffaf0;
+  border: 1px solid #f0d3a4;
   padding: 1em;
-  border-radius: 0.3em;
+  border-radius: 0.5em;
 }
 
 .actions {
   margin: 1em 0;
 }
 
-/* Rounded rectangular blue delete button in top-right of each survey card */
+/* Delete button */
 .delete-btn {
   position: absolute;
   top: 0.6em;
@@ -75,13 +114,59 @@ section {
   padding: 0 0.8em;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   transition: background 0.15s, transform 0.07s;
-  opacity: 1;
-  visibility: visible;
 }
 
 .delete-btn:hover {
   background-color: #185abc;
   transform: scale(1.03);
-  opacity: 1;
-  visibility: visible;
+}
+
+/* Modal overlay for recommendations */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;              /* shown as flex by JS */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal box */
+.modal-content {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 1.5rem 2rem 2rem 2rem;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  text-align: left;
+}
+
+.modal-content h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333333;
+}
+
+/* Cards inside modal */
+.modal-card {
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  margin-bottom: 1rem;
+}
+
+.modal-card h3 {
+  margin: 0 0 0.25rem 0;
+}
+
+.modal-card p {
+  margin: 0.1rem 0;
+}
+
+#closeModalBtn {
+  margin-top: 0.5rem;
 }
