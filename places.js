@@ -1,24 +1,15 @@
-// Sample static data for now (can be replaced with fetch from Flask later)
-const places = [
-  {
-    name: "Central Park",
-    description: "Large urban park with walking paths, lakes, and open fields.",
-    location: "Manhattan, NYC",
-    website: "https://www.centralparknyc.org/"
-  },
-  {
-    name: "Brooklyn Museum",
-    description: "One of the largest and oldest art museums in the United States.",
-    location: "Brooklyn, NYC",
-    website: "https://www.brooklynmuseum.org/"
-  },
-  {
-    name: "Flushing Meadows–Corona Park",
-    description: "Historic park known for the Unisphere and wide open spaces.",
-    location: "Queens, NYC",
-    website: "https://www.nycgovparks.org/parks/flushing-meadows-corona-park"
+async function fetchPlaces() {
+  try {
+    const response = await fetch("http://127.0.0.1:5000/api/places");
+    if (!response.ok) {
+      throw new Error("Failed to fetch /api/places");
+    }
+    return await response.json(); // returns array of places
+  } catch (error) {
+    console.error("Error loading places:", error);
+    return []; // fail-safe
   }
-];
+}
 
 function createPlaceCard(place, index) {
   const card = document.createElement("article");
@@ -26,7 +17,7 @@ function createPlaceCard(place, index) {
 
   const imgDiv = document.createElement("div");
   imgDiv.className = "place-image";
-  imgDiv.textContent = `Image ${index + 1}`; // placeholder text
+  imgDiv.textContent = `Image ${index + 1}`;
 
   const contentDiv = document.createElement("div");
   contentDiv.className = "place-content";
@@ -44,7 +35,7 @@ function createPlaceCard(place, index) {
 
   const websiteLink = document.createElement("a");
   websiteLink.className = "website-btn";
-  websiteLink.href = place.website;  // FIXED
+  websiteLink.href = place.website || "#";
   websiteLink.target = "_blank";
   websiteLink.rel = "noopener noreferrer";
   websiteLink.textContent = "Website";
@@ -60,8 +51,12 @@ function createPlaceCard(place, index) {
   return card;
 }
 
-function renderPlaces() {
+async function renderPlaces() {
   const list = document.getElementById("placesList");
+  list.innerHTML = "";
+
+  const places = await fetchPlaces();
+
   places.forEach((place, idx) => {
     list.appendChild(createPlaceCard(place, idx));
   });
