@@ -2,124 +2,144 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>travelSmart Survey</title>
-  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="survey.css">
 </head>
 <body>
-  <h1>travelSmart</h1>
-  <nav>
-    <a href="./index.html">Home</a>
-    <a href="./survey.html">Survey</a>
-    <a href="./places.html">Places</a>
-    <a href="./foods.html">Foods</a>
-  </nav>
+  <header>
+    <h1>travelSmart</h1>
+  </header>
+
   <main>
-    <form id="surveyForm" class="survey-form">
-      <section>
-        <h2>Travel Preferences</h2>
+    <section>
+      <h2>Travel Preferences Survey</h2>
+
+      <form id="surveyForm" class="survey-form">
+        <!-- Attractions -->
         <label>
-          What type of attractions are you most interested in?
+          What attractions do you prefer?
           <select name="attractions" required>
-            <option value="">Select one…</option>
-            <option>Museums</option>
-            <option>Outdoor activities</option>
-            <option>Historical sites</option>
-            <option>Shopping</option>
-            <option>Nightlife</option>
+            <option value="">Select one</option>
+            <option value="Museums">Museums</option>
+            <option value="Outdoor">Outdoor</option>
+            <option value="Landmarks">Landmarks</option>
+            <option value="Restaurants">Restaurants</option>
           </select>
         </label>
+
+        <!-- Climate -->
         <label>
-          What kind of climate do you prefer for your trip?
+          Preferred climate:
           <select name="climate" required>
-            <option value="">Select one…</option>
-            <option>Warm</option>
-            <option>Cold</option>
-            <option>No preference</option>
+            <option value="">Select one</option>
+            <option value="Warm">Warm</option>
+            <option value="Mild">Mild</option>
+            <option value="Cold">Cold</option>
           </select>
         </label>
+
+        <!-- Distance -->
         <label>
-          How far are you willing to travel within New York State?
+          How far are you willing to travel?
           <select name="distance" required>
-            <option value="">Select one…</option>
-            <option>Within 1 hour</option>
-            <option>1–3 hours</option>
-            <option>Anywhere in state</option>
+            <option value="">Select one</option>
+            <option value="Within 30 minutes">Within 30 minutes</option>
+            <option value="Within 1 hour">Within 1 hour</option>
+            <option value="Any distance">Any distance</option>
           </select>
         </label>
-      </section>
-      <section>
-        <h2>Food Preferences</h2>
+
+        <!-- Cuisine -->
         <label>
-          Which types of cuisine do you most enjoy?
-          <input type="text" name="cuisine" placeholder="e.g., Italian, Chinese, Mexican" required>
+          What cuisine are you in the mood for?
+          <input type="text" name="cuisine" placeholder="e.g., pizza, Mexican, bakery" required>
         </label>
+
+        <!-- Restrictions -->
         <label>
-          Do you have any dietary restrictions or allergies?
-          <input type="text" name="restrictions" placeholder="e.g., vegetarian, gluten-free, nuts" required>
+          Dietary restrictions:
+          <input type="text" name="restrictions" placeholder="e.g., vegetarian, vegan, none">
         </label>
+
+        <!-- Dining style -->
         <label>
-          What is your preferred dining style?
+          Dining style:
           <select name="diningStyle" required>
-            <option value="">Select one…</option>
-            <option>Dine-in</option>
-            <option>Takeout</option>
-            <option>Delivery</option>
+            <option value="">Select one</option>
+            <option value="Dine-in">Dine-in</option>
+            <option value="Takeout">Takeout</option>
+            <option value="Either">Either</option>
           </select>
         </label>
-      </section>
-      <section>
-        <h2>Budget</h2>
+
+        <!-- Trip budget -->
         <label>
-          What is your total budget for the trip?
+          Overall trip budget:
           <select name="tripBudget" required>
-            <option value="">Select one…</option>
-            <option>Less than $100</option>
-            <option>$100–$300</option>
-            <option>$300–$600</option>
-            <option>Over $600</option>
+            <option value="">Select one</option>
+            <option value="Less than $100">Less than $100</option>
+            <option value="$100–$300">$100–$300</option>
+            <option value="More than $300">More than $300</option>
           </select>
         </label>
+
+        <!-- Meal budget -->
         <label>
-          What is your typical price range for meals?
+          Meal budget:
           <select name="mealBudget" required>
-            <option value="">Select one…</option>
-            <option>$</option>
-            <option>$$</option>
-            <option>$$$</option>
+            <option value="">Select one</option>
+            <option value="$">$</option>
+            <option value="$$">$$</option>
+            <option value="$$$">$$$</option>
           </select>
         </label>
+
+        <!-- Budget strictness -->
         <label>
-          Should recommendations strictly match your budget, or are occasional splurges acceptable?
+          How strictly should we match your budget?
           <select name="strictBudget" required>
-            <option value="">Select one…</option>
-            <option>Strictly match budget</option>
-            <option>Occasional splurges are okay</option>
+            <option value="">Select one</option>
+            <option value="Strictly match budget">Strictly match budget</option>
+            <option value="Flexible">Flexible</option>
           </select>
         </label>
+
+        <button type="submit" class="cta-button">Submit survey</button>
+      </form>
+
+      <!-- Confirmation message -->
+      <div id="confirmation" class="survey-results" style="display:none;">
+        <p>Thank you! Your survey has been saved.</p>
+      </div>
+
+      <!-- Latest survey -->
+      <section id="latestSurvey" class="survey-results" style="display:none;">
+        <h3>Your Most Recent Survey</h3>
+        <div id="latestResults"></div>
       </section>
-      <button type="submit" class="cta-button">Submit</button>
-    </form>
 
-    <div id="confirmation" style="display:none; color: green; margin-top: 1rem;">
-      Thank you for submitting your preferences! Your recommendations will be ready soon.
-    </div>
+      <!-- Previous surveys -->
+      <section class="survey-list">
+        <h3>Previous Surveys</h3>
+        <div id="previousSurveys"></div>
+      </section>
 
-    <div id="latestSurvey" class="survey-results" style="display:none;">
-      <h2>Your Most Recent Survey</h2>
-      <div id="latestResults"></div>
-    </div>
+      <button id="newSurveyBtn" class="cta-button" type="button">
+        Start a new survey
+      </button>
+    </section>
 
-    <div class="survey-list">
-      <h2>Previous Surveys</h2>
-      <div id="previousSurveys"></div>
+    <!-- Recommendation popup -->
+    <div id="resultModal" class="modal">
+      <div class="modal-content">
+        <h2>Food and Places to Visit in New York</h2>
+        <div id="modalFood" class="modal-card"></div>
+        <div id="modalPlace" class="modal-card"></div>
+        <button id="closeModalBtn" class="cta-button" type="button">Close</button>
+      </div>
     </div>
   </main>
-  <footer>
-    <p>2025 travelSmart Project for PLC</p>
-    <p>By: Adrian Wu, Kisn Mathema, Aaron Zhang, Honghui Shao, Lamin Yabou</p>
-  </footer>
+
   <script src="survey.js"></script>
 </body>
 </html>
