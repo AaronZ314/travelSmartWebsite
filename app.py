@@ -4,6 +4,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+
 @app.route("/")
 def home():
     return """
@@ -16,10 +17,14 @@ def home():
         <li><a href="/api/hotels-data">/api/hotels-data</a></li>
         <li><a href="/api/surveys">POST /api/surveys</a></li>
         <li><a href="/api/recommend-places">/api/recommend-places</a></li>
+        <li><a href="/api/recommend-foods">/api/recommend-foods</a></li>
+        <li><a href="/api/recommend-summary">/api/recommend-summary</a></li>
     </ul>
     """
 
-# Places data
+
+# ---------- DATA ----------
+
 places = [
     {
         "name": "Central Park",
@@ -27,7 +32,7 @@ places = [
         "description": "Large urban park with walking paths, lakes, and open fields.",
         "location": "Manhattan, NYC",
         "website": "https://www.centralparknyc.org/",
-        "type": "Outdoor"
+        "type": "Outdoor",
     },
     {
         "name": "Brooklyn Museum",
@@ -35,7 +40,7 @@ places = [
         "description": "One of the largest and oldest art museums in the United States.",
         "location": "Brooklyn, NYC",
         "website": "https://www.brooklynmuseum.org/",
-        "type": "Museums"
+        "type": "Museums",
     },
     {
         "name": "Flushing Meadows–Corona Park",
@@ -43,20 +48,19 @@ places = [
         "description": "Historic park known for the Unisphere and wide open spaces.",
         "location": "Queens, NYC",
         "website": "https://www.nycgovparks.org/parks/flushing-meadows-corona-park",
-        "type": "Outdoor"
-    }
+        "type": "Outdoor",
+    },
 ]
 
-# Foods data
 foods = [
     {
         "name": "Katz's Delicatessen",
         "borough": "Manhattan",
         "type": "Restaurant",
         "cuisine": "Jewish / Deli",
-        "description": "Historic kosher-style delicatessen known for its massive pastrami (and corned beef) sandwiches — a New York classic.",
-        "location": "205 East Houston Street, Lower East Side, Manhattan, NY 10002",
-        "website": "https://katzsdelicatessen.com/"
+        "description": "Historic kosher-style delicatessen known for its massive pastrami sandwiches.",
+        "location": "Lower East Side, Manhattan",
+        "website": "https://katzsdelicatessen.com/",
     },
     {
         "name": "Joe's Pizza",
@@ -65,7 +69,7 @@ foods = [
         "cuisine": "Pizza",
         "description": "Classic New York–style pizza slices with a thin, crispy crust.",
         "location": "Greenwich Village, Manhattan",
-        "website": "https://www.joespizzanyc.com/"
+        "website": "https://www.joespizzanyc.com/",
     },
     {
         "name": "Levain Bakery",
@@ -74,7 +78,7 @@ foods = [
         "cuisine": "Bakery",
         "description": "Famous bakery known for giant, gooey cookies and fresh baked goods.",
         "location": "Upper West Side, Manhattan",
-        "website": "https://levainbakery.com/"
+        "website": "https://levainbakery.com/",
     },
     {
         "name": "Los Tacos No. 1",
@@ -83,7 +87,7 @@ foods = [
         "cuisine": "Mexican",
         "description": "Popular spot for authentic, fast casual tacos and Mexican street food.",
         "location": "Chelsea Market, Manhattan",
-        "website": "https://lostacosno1.com/"
+        "website": "https://lostacosno1.com/",
     },
     {
         "name": "Xi’an Famous Foods",
@@ -92,101 +96,100 @@ foods = [
         "cuisine": "Chinese",
         "description": "Casual eatery known for hand-pulled noodles and spicy Western Chinese dishes.",
         "location": "Multiple locations in Manhattan",
-        "website": "https://www.xianfoods.com/"
-    },  
+        "website": "https://www.xianfoods.com/",
+    },
     {
         "name": "Marea",
         "borough": "Manhattan",
         "type": "Restaurant",
         "cuisine": "Italian / Seafood",
-        "description": "Upscale Italian and seafood restaurant near Columbus Circle — recognized as one of the city's top Italian-seafood spots.",
-        "location": "240 Central Park South, Manhattan, NY 10019",
-        "website": ""
+        "description": "Upscale Italian and seafood restaurant near Columbus Circle.",
+        "location": "240 Central Park South, Manhattan",
+        "website": "",
     },
     {
         "name": "Jean-Georges",
         "borough": "Manhattan",
         "type": "Restaurant",
         "cuisine": "French / New American",
-        "description": "Flagship restaurant mixing French and New American cuisine, with seasonal menus and high-end dining near Central Park.",
-        "location": "1 Central Park West (at Columbus Circle), Manhattan, NY",
-        "website": "https://www.jean-georges.com"
+        "description": "Flagship restaurant mixing French and New American cuisine near Central Park.",
+        "location": "1 Central Park West, Manhattan",
+        "website": "https://www.jean-georges.com",
     },
     {
         "name": "Gramercy Tavern",
         "borough": "Manhattan",
         "type": "Restaurant",
         "cuisine": "New American",
-        "description": "Beloved farm-to-table New American tavern and dining room, known for its warm hospitality and seasonal dishes.",
-        "location": "Flatiron/Gramercy area, Manhattan, NY",
-        "website": "https://www.gramercytavern.com"
+        "description": "Beloved farm-to-table New American tavern known for seasonal dishes.",
+        "location": "Flatiron / Gramercy, Manhattan",
+        "website": "https://www.gramercytavern.com",
     },
     {
         "name": "César",
         "borough": "Manhattan",
         "type": "Restaurant",
         "cuisine": "Seafood / Contemporary",
-        "description": "Michelin-starred seafood restaurant opened in 2024, offering refined seafood-forward dishes in Hudson Square.",
-        "location": "333 Hudson Street, Hudson Square, Manhattan, NY 10013",
-        "website": "https://www.cesar.restaurant/"
+        "description": "Seafood restaurant in Hudson Square with refined seafood-forward dishes.",
+        "location": "Hudson Square, Manhattan",
+        "website": "https://www.cesar.restaurant/",
     },
     {
         "name": "Lucali",
         "borough": "Brooklyn",
         "type": "Restaurant",
         "cuisine": "Italian / Pizza",
-        "description": "Beloved brick-oven pizzeria in Carroll Gardens, known for its Neapolitan-style pies and calzones — often listed among NYC’s best pizza spots.",
-        "location": "575 Henry St, Carroll Gardens, Brooklyn, NY 11231",
-        "website": "https://www.lucali.com/"
+        "description": "Brick-oven pizzeria in Carroll Gardens known for Neapolitan-style pies.",
+        "location": "Carroll Gardens, Brooklyn",
+        "website": "https://www.lucali.com/",
     },
     {
         "name": "Di Fara Pizza",
         "borough": "Brooklyn",
         "type": "Restaurant",
         "cuisine": "Pizza / Italian-American",
-        "description": "Legendary pizzeria in Midwood — frequently called one of the best pizza spots in NYC, famous for its classic handmade pies and decades-old tradition.",
-        "location": "1424 Avenue J, Midwood, Brooklyn, NY 11230",
-        "website": "http://www.difarapizzany.com/"
+        "description": "Legendary pizzeria in Midwood famous for classic handmade pies.",
+        "location": "Midwood, Brooklyn",
+        "website": "http://www.difarapizzany.com/",
     },
     {
         "name": "L&B Spumoni Gardens",
         "borough": "Brooklyn",
         "type": "Restaurant",
         "cuisine": "Italian-American / Sicilian Pizza",
-        "description": "Historic Italian-American pizzeria and restaurant (est. 1939), famous for its Sicilian square-slice pizza and classic spumoni desserts.",
-        "location": "2725 86th Street, Gravesend, Brooklyn, NY 11223",
-        "website": "https://spumonigardens.com/"
+        "description": "Historic pizzeria known for Sicilian square slices and spumoni desserts.",
+        "location": "Gravesend, Brooklyn",
+        "website": "https://spumonigardens.com/",
     },
     {
         "name": "Randazzo's Clam Bar",
         "borough": "Brooklyn",
         "type": "Restaurant",
         "cuisine": "Seafood / Italian-American",
-        "description": "Old-school seafood institution in Sheepshead Bay (opened 1963), known for generous portions, clam dishes, lobster fra diavolo, and longtime loyal customers.",
-        "location": "2017 Emmons Avenue, Sheepshead Bay, Brooklyn, NY 11235",
-        "website": "http://randazzosclambar.nyc/"
+        "description": "Seafood institution in Sheepshead Bay known for clam dishes and lobster.",
+        "location": "Sheepshead Bay, Brooklyn",
+        "website": "http://randazzosclambar.nyc/",
     },
     {
         "name": "Oxomoco",
         "borough": "Brooklyn",
         "type": "Restaurant",
         "cuisine": "Mexican",
-        "description": "Wood-fired Mexican restaurant in Greenpoint — Michelin-starred, celebrated for inventive tacos and wood-grilled dishes, blending traditional flavors with modern technique.",
-        "location": "128 Greenpoint Avenue, Greenpoint, Brooklyn, NY 11222",
-        "website": "https://oxomoconyc.com/"
+        "description": "Wood-fired Mexican restaurant in Greenpoint, Michelin-starred.",
+        "location": "Greenpoint, Brooklyn",
+        "website": "https://oxomoconyc.com/",
     },
     {
         "name": "A&A Bake and Doubles Shop",
         "borough": "Brooklyn",
         "type": "Restaurant",
         "cuisine": "Trinidadian / Caribbean",
-        "description": "Bed-Stuy restaurant serving Trinidad and Tobago–style doubles, aloo pies and other Caribbean comfort food — praised for authenticity and vibrant flavors.",
-        "location": "Bed-Stuy, Brooklyn, NY",
-        "website": "https://www.yelp.com/biz/a-and-a-bake-and-double-and-roti-shop-brooklyn-3"
-    }
+        "description": "Bed-Stuy spot for doubles, aloo pies, and Caribbean comfort food.",
+        "location": "Bed-Stuy, Brooklyn",
+        "website": "https://www.yelp.com/biz/a-and-a-bake-and-double-and-roti-shop-brooklyn-3",
+    },
 ]
 
-# Hotels data
 hotels = [
     {
         "name": "Manhattan Hotel",
@@ -195,7 +198,7 @@ hotels = [
         "price_range": "$$$",
         "description": "Example hotel in Midtown Manhattan.",
         "location": "Midtown, Manhattan",
-        "website": "https://example-manhattan-hotel.com/"
+        "website": "https://example-manhattan-hotel.com/",
     },
     {
         "name": "Brooklyn Boutique Hotel",
@@ -204,12 +207,16 @@ hotels = [
         "price_range": "$$",
         "description": "Example boutique hotel in Brooklyn.",
         "location": "Williamsburg, Brooklyn",
-        "website": "https://example-brooklyn-hotel.com/"
-    }
+        "website": "https://example-brooklyn-hotel.com/",
+    },
 ]
+
 
 # In‑memory survey storage
 surveys = []
+
+
+# ---------- ROUTES ----------
 
 @app.route("/api/places", methods=["GET"])
 def get_places():
@@ -233,14 +240,15 @@ def get_places():
     """
     return html
 
+
 @app.route("/api/foods", methods=["GET"])
 def get_foods():
-    """Return all foods, or filter by borough with ?borough=Manhattan."""
     borough = request.args.get("borough")
     if borough:
         filtered = [f for f in foods if f["borough"].lower() == borough.lower()]
         return jsonify(filtered)
     return jsonify(foods)
+
 
 @app.route("/api/hotels-data", methods=["GET"])
 def hotels_data():
@@ -250,7 +258,7 @@ def hotels_data():
         return jsonify(filtered)
     return jsonify(hotels)
 
-# HTML page listing hotels and links
+
 @app.route("/api/hotels", methods=["GET"])
 def hotels_page():
     return """
@@ -263,14 +271,15 @@ def hotels_page():
     <p><a href="/">Back home</a></p>
     """
 
+
 @app.route("/api/surveys", methods=["POST"])
 def save_survey():
     data = request.get_json()
     if not data:
         return jsonify({"error": "Missing JSON body"}), 400
-
     surveys.append(data)
     return jsonify({"status": "saved", "count": len(surveys)})
+
 
 @app.route("/api/recommend-places", methods=["GET"])
 def recommend_places():
@@ -278,7 +287,6 @@ def recommend_places():
         return jsonify(places)
 
     last = surveys[-1]
-
     preferred_attractions = last.get("attractions", "").lower()
     preferred_cuisine = last.get("cuisine", "").lower()
 
@@ -295,8 +303,9 @@ def recommend_places():
     ]
     if cuisine_match:
         return jsonify(cuisine_match)
-    
+
     return jsonify(places)
+
 
 @app.route("/api/recommend-foods", methods=["GET"])
 def recommend_foods():
@@ -304,7 +313,6 @@ def recommend_foods():
         return jsonify(foods)
 
     last = surveys[-1]
-
     pref_cuisine = last.get("cuisine", "").lower()
     pref_budget = last.get("mealBudget", "")
     pref_style = last.get("diningStyle", "").lower()
@@ -313,18 +321,40 @@ def recommend_foods():
     results = foods
 
     if pref_cuisine:
-        results = [
-            f for f in results
-            if pref_cuisine in f["cuisine"].lower()
-        ]
+        results = [f for f in results if pref_cuisine in f["cuisine"].lower()]
 
     if restrictions and restrictions != "none":
-        results = [
-            f for f in results
-            if restrictions not in f["description"].lower()
-        ]
+        results = [f for f in results if restrictions not in f["description"].lower()]
 
     return jsonify(results)
+
+
+@app.route("/api/recommend-summary", methods=["GET"])
+def recommend_summary():
+    if not surveys:
+        return jsonify({"error": "no-surveys"}), 400
+
+    last = surveys[-1]
+    preferred_attractions = last.get("attractions", "").lower()
+    preferred_cuisine = last.get("cuisine", "").lower()
+
+    place_candidates = [
+        p for p in places
+        if preferred_attractions and preferred_attractions in p["type"].lower()
+    ]
+    best_place = place_candidates[0] if place_candidates else places[0]
+
+    food_candidates = [
+        f for f in foods
+        if preferred_cuisine and preferred_cuisine in f["cuisine"].lower()
+    ]
+    best_food = food_candidates[0] if food_candidates else foods[0]
+
+    return jsonify({
+        "food": best_food,
+        "place": best_place
+    })
+
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)

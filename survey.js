@@ -55,7 +55,7 @@ async function saveSurveyBackend(data) {
     const res = await fetch("http://127.0.0.1:5000/api/surveys", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
 
     if (!res.ok) {
@@ -83,9 +83,9 @@ function showSurveys() {
   previousDiv.innerHTML = entries;
 
   const deleteButtons = previousDiv.querySelectorAll(".delete-btn");
-  deleteButtons.forEach(btn => {
+  deleteButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      const idx = parseInt(btn.getAttribute("data-delete-index"));
+      const idx = parseInt(btn.getAttribute("data-delete-index"), 10);
       deleteSurvey(idx);
     });
   });
@@ -115,14 +115,15 @@ document.getElementById("surveyForm").addEventListener("submit", async (event) =
     data[key] = value;
   }
 
+  // Save locally + backend
   saveSurvey(data);
-
   await saveSurveyBackend(data);
 
   document.getElementById("confirmation").style.display = "block";
   showLatestSurvey();
   showSurveys();
 
+  // Fetch recommendation summary for popup
   try {
     const res = await fetch("http://127.0.0.1:5000/api/recommend-summary");
     const summary = await res.json();
@@ -187,5 +188,6 @@ if (modalRoot) {
   });
 }
 
+// Initial render when page loads
 showLatestSurvey();
 showSurveys();
