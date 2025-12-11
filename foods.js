@@ -15,10 +15,6 @@ function createFoodCard(food, index) {
   const card = document.createElement("article");
   card.className = "food-card";
 
-  const imgDiv = document.createElement("div");
-  imgDiv.className = "food-image";
-  imgDiv.textContent = `Image ${index + 1}`;
-
   const contentDiv = document.createElement("div");
   contentDiv.className = "food-content";
 
@@ -45,7 +41,6 @@ function createFoodCard(food, index) {
   contentDiv.appendChild(textDiv);
   contentDiv.appendChild(actionsDiv);
 
-  card.appendChild(imgDiv);
   card.appendChild(contentDiv);
 
   return card;

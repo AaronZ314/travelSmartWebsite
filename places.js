@@ -15,10 +15,6 @@ function createPlaceCard(place, index) {
   const card = document.createElement("article");
   card.className = "place-card";
 
-  const imgDiv = document.createElement("div");
-  imgDiv.className = "place-image";
-  imgDiv.textContent = `Image ${index + 1}`;
-
   const contentDiv = document.createElement("div");
   contentDiv.className = "place-content";
 
