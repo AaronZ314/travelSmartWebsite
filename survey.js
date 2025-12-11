@@ -106,6 +106,7 @@ function showLatestSurvey() {
   resultsDiv.innerHTML = renderSurvey(surveys[surveys.length - 1]);
 }
 
+// Submit handler
 document.getElementById("surveyForm").addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -133,6 +134,7 @@ document.getElementById("surveyForm").addEventListener("submit", async (event) =
   }
 });
 
+// Show popup with recommendations
 function showRecommendationModal(rec) {
   const modal = document.getElementById("resultModal");
   const foodDiv = document.getElementById("modalFood");
@@ -166,6 +168,7 @@ function showRecommendationModal(rec) {
   modal.style.display = "flex";
 }
 
+// Close button
 const closeBtn = document.getElementById("closeModalBtn");
 if (closeBtn) {
   closeBtn.addEventListener("click", () => {
@@ -173,11 +176,26 @@ if (closeBtn) {
   });
 }
 
+// Click outside modal to close
 const modalRoot = document.getElementById("resultModal");
 if (modalRoot) {
   modalRoot.addEventListener("click", (e) => {
     if (e.target.id === "resultModal") {
       modalRoot.style.display = "none";
+    }
+  });
+}
+
+// Clicking "Most Recent Survey" reopens popup with latest recommendations
+const latestSurveySection = document.getElementById("latestSurvey");
+if (latestSurveySection) {
+  latestSurveySection.addEventListener("click", async () => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/api/recommend-summary");
+      const summary = await res.json();
+      showRecommendationModal(summary);
+    } catch (err) {
+      console.error("Error fetching recommendation summary on latest click:", err);
     }
   });
 }

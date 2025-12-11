@@ -11,10 +11,10 @@
     <h1>travelSmart</h1>
     
     <nav>
-    <a href="./index.html">Home</a>
-    <a href="./survey.html">Survey</a>
-    <a href="./places.html">Places</a>
-    <a href="./foods.html">Foods</a>
+      <a href="./index.html">Home</a>
+      <a href="./survey.html">Survey</a>
+      <a href="./places.html">Places</a>
+      <a href="./foods.html">Foods</a>
     </nav>
   </header>
 
@@ -119,9 +119,9 @@
         <p>Thank you! Your survey has been saved.</p>
       </div>
 
-      <!-- Latest survey -->
-      <section id="latestSurvey" class="survey-results" style="display:none;">
-        <h3>Your Most Recent Survey</h3>
+      <!-- Latest survey (clickable to reopen popup) -->
+      <section id="latestSurvey" class="survey-results" style="display:none; cursor:pointer;">
+        <h3>Your Most Recent Survey (click to view recommendations)</h3>
         <div id="latestResults"></div>
       </section>
 
@@ -142,10 +142,12 @@
       </div>
     </div>
   </main>
+
   <footer>
     <p>2025 travelSmart Project for PLC</p>
     <p>By: Adrian Wu, Kisn Mathema, Aaron Zhang, Andy Shao, Lamin Yabou</p>
   </footer>
+
   <script src="survey.js"></script>
 </body>
 </html>
