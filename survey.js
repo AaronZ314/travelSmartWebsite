@@ -133,12 +133,6 @@ document.getElementById("surveyForm").addEventListener("submit", async (event) =
   }
 });
 
-document.getElementById("newSurveyBtn").addEventListener("click", () => {
-  document.getElementById("surveyForm").reset();
-  document.getElementById("confirmation").style.display = "none";
-  document.getElementById("latestSurvey").style.display = "none";
-});
-
 function showRecommendationModal(rec) {
   const modal = document.getElementById("resultModal");
   const foodDiv = document.getElementById("modalFood");
