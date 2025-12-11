@@ -22,18 +22,6 @@
   align-items: center;
 }
 
-.place-image {
-  flex: 0 0 120px;
-  height: 120px;
-  border-radius: 12px;
-  background-color: #e0e0e0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #777;
-  font-size: 1.2rem;
-}
-
 .place-content {
   flex: 1;
   display: flex;
@@ -58,7 +46,7 @@
   text-align: right;
 }
 
-.navigate-btn {
+.website-btn {
   display: inline-block;
   padding: 0.4em 1.1em;
   background: #4185F4;
@@ -71,7 +59,7 @@
   transition: background 0.15s, transform 0.07s;
 }
 
-.navigate-btn:hover {
+.website-btn:hover {
   background: #185abc;
   transform: scale(1.03);
 }

@@ -22,18 +22,6 @@
   align-items: center;
 }
 
-.food-image {
-  flex: 0 0 120px;
-  height: 120px;
-  border-radius: 12px;
-  background-color: #e0e0e0; /* empty placeholder */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #777;
-  font-size: 1.1rem;
-}
-
 .food-content {
   flex: 1;
   display: flex;

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>travelSmart Places</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="places.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>travelSmart Foods</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="places.css">
 </head>
 <body>
-  <h1>travelSmart</h1>
-
+    <h1>travelSmart</h1>
   <nav>
     <a href="./index.html">Home</a>
     <a href="./survey.html">Survey</a>
@@ -19,85 +18,17 @@
 
   <main>
     <h2 class="page-title">Places</h2>
-
-    <section class="places-list">
-      <!-- Place 1: Central Park -->
-      <article class="place-card">
-        <div class="place-content">
-          <div class="place-text">
-            <h3>Central Park</h3>
-            <p>
-              Large urban park with walking paths, lakes, and open fields in the heart
-              of Manhattan.
-            </p>
-            <p><strong>Location:</strong> Manhattan, New York, NY</p>
-          </div>
-          <div class="place-actions">
-            <a
-              class="navigate-btn"
-              href="https://www.google.com/maps/search/?api=1&query=Central+Park+New+York+NY"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Navigate
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Place 2: Brooklyn Museum -->
-      <article class="place-card">
-        <div class="place-content">
-          <div class="place-text">
-            <h3>Brooklyn Museum</h3>
-            <p>
-              One of the largest and oldest art museums in the United States, with
-              collections from around the world.
-            </p>
-            <p><strong>Location:</strong> Brooklyn, New York, NY</p>
-          </div>
-          <div class="place-actions">
-            <a
-              class="navigate-btn"
-              href="https://www.google.com/maps/search/?api=1&query=Brooklyn+Museum+New+York+NY"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Navigate
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Place 3: Flushing Meadows–Corona Park -->
-      <article class="place-card">
-        <div class="place-content">
-          <div class="place-text">
-            <h3>Flushing Meadows–Corona Park</h3>
-            <p>
-              Historic Queens park known for the Unisphere, wide open spaces, and
-              former World’s Fair grounds.
-            </p>
-            <p><strong>Location:</strong> Queens, New York, NY</p>
-          </div>
-          <div class="place-actions">
-            <a
-              class="navigate-btn"
-              href="https://www.google.com/maps/search/?api=1&query=Flushing+Meadows+Corona+Park+Queens+NY"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Navigate
-            </a>
-          </div>
-        </div>
-      </article>
+    
+    <section id="placesList" class="places-list">
+      <!-- Cards will be inserted by places.js -->
     </section>
   </main>
 
-  <footer>
+<footer>
     <p>2025 travelSmart Project for PLC</p>
-    <p>By: Adrian Wu, Kisn Mathema, Aaron Zhang, Andy Shao, Lamin Yabou</p>
+    <p>By: Adrian Wu, Kisn Mathema, Aaron Zhang, Honghui Shao, Lamin Yabou</p>
   </footer>
+
+  <script src="places.js"></script>
 </body>
 </html>

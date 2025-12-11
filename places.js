@@ -39,7 +39,6 @@ function createPlaceCard(place, index) {
   actionsDiv.appendChild(websiteLink);
   contentDiv.appendChild(textDiv);
   contentDiv.appendChild(actionsDiv);
-  card.appendChild(imgDiv);
   card.appendChild(contentDiv);
 
   return card;

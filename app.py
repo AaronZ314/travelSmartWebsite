@@ -218,7 +218,7 @@ surveys = []
 # ---------- API ROUTES ----------
 
 @app.route("/api/places", methods=["GET"])
-def api_places():
+def get_places():
     return jsonify(places)
 
 
