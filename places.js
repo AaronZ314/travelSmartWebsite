@@ -4,10 +4,10 @@ async function fetchPlaces() {
     if (!response.ok) {
       throw new Error("Failed to fetch /api/places");
     }
-    return await response.json(); // returns array of places
+    return await response.json(); // array of 3 places from backend
   } catch (error) {
     console.error("Error loading places:", error);
-    return []; // fail-safe
+    return [];
   }
 }
 
@@ -41,10 +41,8 @@ function createPlaceCard(place, index) {
   websiteLink.textContent = "Website";
 
   actionsDiv.appendChild(websiteLink);
-
   contentDiv.appendChild(textDiv);
   contentDiv.appendChild(actionsDiv);
-
   card.appendChild(imgDiv);
   card.appendChild(contentDiv);
 
@@ -56,7 +54,6 @@ async function renderPlaces() {
   list.innerHTML = "";
 
   const places = await fetchPlaces();
-
   places.forEach((place, idx) => {
     list.appendChild(createPlaceCard(place, idx));
   });

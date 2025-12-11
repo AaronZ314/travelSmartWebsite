@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "http://127.0.0.1:3000"}})
 
 
 @app.route("/")
@@ -211,38 +211,19 @@ hotels = [
     },
 ]
 
-
 # In‑memory survey storage
 surveys = []
 
 
-# ---------- ROUTES ----------
+# ---------- API ROUTES ----------
 
 @app.route("/api/places", methods=["GET"])
-def get_places():
-    html = """
-    <h2>Places</h2>
-    <ul>
-    """
-    for p in places:
-        name = p["name"]
-        borough = p["borough"]
-        html += f"""
-        <li>
-          {name} ({borough})
-          - <a href="/api/foods?borough={borough}">food in {borough}</a>
-          - <a href="/api/hotels-data?borough={borough}">Hotels in {borough}</a>
-        </li>
-        """
-    html += """
-    </ul>
-    <p><a href="/">Back home</a></p>
-    """
-    return html
+def api_places():
+    return jsonify(places)
 
 
 @app.route("/api/foods", methods=["GET"])
-def get_foods():
+def api_foods():
     borough = request.args.get("borough")
     if borough:
         filtered = [f for f in foods if f["borough"].lower() == borough.lower()]
@@ -251,7 +232,7 @@ def get_foods():
 
 
 @app.route("/api/hotels-data", methods=["GET"])
-def hotels_data():
+def api_hotels_data():
     borough = request.args.get("borough")
     if borough:
         filtered = [h for h in hotels if h["borough"].lower() == borough.lower()]
