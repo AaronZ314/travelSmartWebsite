@@ -1,33 +1,40 @@
 1. Create and activate a virtual environment
-In the VS Code terminal, inside the project folder:
+Mac/Linux:
 
-bash
 python3 -m venv venv
 
-Then activate it:
+source venv/bin/activate​
 
-macOS / Linux:
-source venv/bin/activate
-They should now see (venv) in the terminal prompt.​
+Windows (cmd or PowerShell):
 
-2. Install dependencies
-From the same activated venv, run:
+python -m venv venv
 
-bash
-pip install flask flask-cors
-If you add a requirements.txt, they can instead do:
+venv\Scripts\activate​
 
-bash
-pip install -r requirements.txt
-4. Run the Flask app
-Still in the project folder and with the venv active:
+2. Install required packages
+With the venv active (you should see (venv) in the prompt):
 
-bash
-python app.py
-They should see “Running on http://127.0.0.1:5000/” and can then open:
+Install Flask:
 
-http://127.0.0.1:5000/ for the backend, and
+pip install flask​
 
-survey.html, index.html etc. from the cloned folder (via Live Server or by opening the files directly) for the frontend.​
+Install Flask-CORS (fixes the No module named flask_cors error):
 
-As long as they keep the Flask server running in that terminal, your survey and popup features will work the same on their VS Code setup.
+pip install Flask-Cors​
+
+3. Set the Flask app and run it
+Assuming your main file is app.py and contains the Flask app object:
+
+Mac/Linux:
+
+export FLASK_APP=app.py
+
+Windows (cmd/PowerShell):
+
+set FLASK_APP=app.py​
+
+Then start the server:
+
+flask run​
+
+Flask will show a URL like http://127.0.0.1:5000/; open that in a browser, or point your frontend to it as the backend API.​
