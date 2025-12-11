@@ -13,8 +13,6 @@ def home():
     <ul>
         <li><a href="/api/places">/api/places</a></li>
         <li><a href="/api/foods">/api/foods</a></li>
-        <li><a href="/api/hotels">/api/hotels</a></li>
-        <li><a href="/api/hotels-data">/api/hotels-data</a></li>
         <li><a href="/api/surveys">POST /api/surveys</a></li>
         <li><a href="/api/recommend-places">/api/recommend-places</a></li>
         <li><a href="/api/recommend-foods">/api/recommend-foods</a></li>
@@ -35,13 +33,47 @@ places = [
         "type": "Outdoor",
     },
     {
+        "name": "The Museum of Modern Art",
+        "borough": "Manhattan",
+        "description": "Works from van Gogh to Warhol & beyond plus a sculpture garden, 2 cafes & The Modern restaurant.",
+        "location": "Manhattan, NYC",
+        "website": "https://www.moma.org/",
+        "type": "Museums",
+    },
+    {
+        "name": "Empire State Building",
+        "borough": "Manhattan",
+        "description": "Iconic, art deco office tower from 1931 with exhibits & observatories on the 86th & 102nd floors.",
+        "location": "Manhattan, NYC",
+        "website": "https://www.esbnyc.com/",
+        "type": "Landmarks",
+    },
+
+    {
+        "name": "Brooklyn Bridge Park",
+        "borough": "Brooklyn",
+        "description":"This urban oasis features shaded picnic tables, hibachi-style BBQ grills & river views.",
+        "location": "Brooklyn, NYC",
+        "website": "https://www.brooklynbridgepark.org/",
+        "type": "Outdoor",
+    },
+    {
         "name": "Brooklyn Museum",
         "borough": "Brooklyn",
-        "description": "One of the largest and oldest art museums in the United States.",
+        "description":"One of the largest and oldest art museums in the United States.",
         "location": "Brooklyn, NYC",
         "website": "https://www.brooklynmuseum.org/",
         "type": "Museums",
     },
+    {
+        "name": "Brooklyn Bridge",
+        "borough": "Brooklyn",
+        "description": "Beloved, circa-1883 landmark connecting Manhattan & Brooklyn via a unique stone-&-steel design.",
+        "location": "Brooklyn, NYC",
+        "website": "https://www.nyc.gov/html/dot/html/infrastructure/brooklyn-bridge.shtml",
+        "type": "Landmarks",
+    },
+
     {
         "name": "Flushing Meadows–Corona Park",
         "borough": "Queens",
@@ -49,6 +81,22 @@ places = [
         "location": "Queens, NYC",
         "website": "https://www.nycgovparks.org/parks/flushing-meadows-corona-park",
         "type": "Outdoor",
+    },
+    {
+        "name": "New York Hall of Science",
+        "borough": "Queens",
+        "description": "This former 1964 World's Fair pavilion now houses more than 450 interactive science & tech exhibits.",
+        "location": "Queens, NYC",
+        "website": "https://nysci.org/",
+        "type": "Museums",
+    },
+    {
+        "name": "Lewis H. Latimer House",
+        "borough": "Queens",
+        "description": "Historical house-turned-museum of a well-known African American inventor & electrical pioneer.",
+        "location": "Queens, NYC",
+        "website": "https://www.lewislatimerhouse.org/",
+        "type": "Landmarks",
     },
 ]
 
@@ -189,28 +237,6 @@ foods = [
         "website": "https://www.yelp.com/biz/a-and-a-bake-and-double-and-roti-shop-brooklyn-3",
     },
 ]
-
-hotels = [
-    {
-        "name": "Manhattan Hotel",
-        "borough": "Manhattan",
-        "stars": 4,
-        "price_range": "$$$",
-        "description": "Example hotel in Midtown Manhattan.",
-        "location": "Midtown, Manhattan",
-        "website": "https://example-manhattan-hotel.com/",
-    },
-    {
-        "name": "Brooklyn Boutique Hotel",
-        "borough": "Brooklyn",
-        "stars": 3,
-        "price_range": "$$",
-        "description": "Example boutique hotel in Brooklyn.",
-        "location": "Williamsburg, Brooklyn",
-        "website": "https://example-brooklyn-hotel.com/",
-    },
-]
-
 # In‑memory survey storage
 surveys = []
 
@@ -229,29 +255,6 @@ def api_foods():
         filtered = [f for f in foods if f["borough"].lower() == borough.lower()]
         return jsonify(filtered)
     return jsonify(foods)
-
-
-@app.route("/api/hotels-data", methods=["GET"])
-def api_hotels_data():
-    borough = request.args.get("borough")
-    if borough:
-        filtered = [h for h in hotels if h["borough"].lower() == borough.lower()]
-        return jsonify(filtered)
-    return jsonify(hotels)
-
-
-@app.route("/api/hotels", methods=["GET"])
-def hotels_page():
-    return """
-    <h2>Hotels</h2>
-    <p>Select a borough:</p>
-    <ul>
-        <li><a href="/api/hotels-data?borough=Manhattan">Manhattan</a></li>
-        <li><a href="/api/hotels-data?borough=Brooklyn">Brooklyn</a></li>
-    </ul>
-    <p><a href="/">Back home</a></p>
-    """
-
 
 @app.route("/api/surveys", methods=["POST"])
 def save_survey():
