@@ -3,17 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>travelSmart Survey</title>
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="survey.css">
 </head>
 <body>
   <header>
     <h1>travelSmart</h1>
+    
+    <nav>
+    <a href="./index.html">Home</a>
+    <a href="./survey.html">Survey</a>
+    <a href="./places.html">Places</a>
+    <a href="./foods.html">Foods</a>
+    </nav>
   </header>
 
   <main>
+    <h2>Travel Preferences Survey</h2>
     <section>
-      <h2>Travel Preferences Survey</h2>
-
       <form id="surveyForm" class="survey-form">
         <!-- Attractions -->
         <label>
@@ -123,10 +130,6 @@
         <h3>Previous Surveys</h3>
         <div id="previousSurveys"></div>
       </section>
-
-      <button id="newSurveyBtn" class="cta-button" type="button">
-        Start a new survey
-      </button>
     </section>
 
     <!-- Recommendation popup -->
@@ -139,7 +142,10 @@
       </div>
     </div>
   </main>
-
+  <footer>
+    <p>2025 travelSmart Project for PLC</p>
+    <p>By: Adrian Wu, Kisn Mathema, Aaron Zhang, Andy Shao, Lamin Yabou</p>
+  </footer>
   <script src="survey.js"></script>
 </body>
 </html>
